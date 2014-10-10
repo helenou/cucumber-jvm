@@ -99,7 +99,7 @@ I18n.all.each { i18n ->
       def normalized_kw = normalize(kw)
       def binding = ["i18n":i18n, "kw":normalized_kw]
       template = engine.createTemplate(templateSource).make(binding)
-      def file = new File(project.baseDir, "target${File.separator}generated-sources${File.separator}i18n${File.separator}java${File.separator}cucumber${File.separator}api${File.separator}java${File.separator}${i18n.underscoredIsoCode}${File.separator}${normalized_kw}.java")
+      def file = new File(project.baseDir, "tmp${File.separator}generated-sources${File.separator}i18n${File.separator}java${File.separator}cucumber${File.separator}api${File.separator}java${File.separator}${i18n.underscoredIsoCode}${File.separator}${normalized_kw}.java")
       file.parentFile.mkdirs()
       file.write(template.toString(), "UTF-8")
     }
@@ -107,7 +107,7 @@ I18n.all.each { i18n ->
     // html
     def binding = ["i18n":i18n]
     def html = engine.createTemplate(package_html).make(binding).toString()
-    def file = new File(project.baseDir, "target${File.separator}generated-sources${File.separator}i18n${File.separator}java${File.separator}cucumber${File.separator}api${File.separator}java${File.separator}${i18n.underscoredIsoCode}${File.separator}package.html")
+    def file = new File(project.baseDir, "tmp${File.separator}generated-sources${File.separator}i18n${File.separator}java${File.separator}cucumber${File.separator}api${File.separator}java${File.separator}${i18n.underscoredIsoCode}${File.separator}package.html")
     file.write(html, "UTF-8")
   }
 }
@@ -131,7 +131,7 @@ I18n.all.each { i18n ->
                         </goals>
                         <configuration>
                             <sources>
-                                <source>${basedir}/target/generated-sources/i18n/java</source>
+                                <source>${basedir}/tmp/generated-sources/i18n/java</source>
                             </sources>
                         </configuration>
                     </execution>
