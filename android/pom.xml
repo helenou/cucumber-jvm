@@ -69,6 +69,38 @@
                     <version>${android-maven-plugin.version}</version>
                     <extensions>true</extensions>
                 </plugin>
+                <!--This plugin's configuration is used to store Eclipse m2e settings only. It has no influence on the Maven build itself.
+                	Because of this errors "execution not covered by lifecycle configuration: com.jayway.maven.plugins.android.generation2:android-maven-plugin:3.9.0-rc.1:generate-sources" -->
+                <plugin>
+                	<groupId>org.eclipse.m2e</groupId>
+                	<artifactId>lifecycle-mapping</artifactId>
+                	<version>1.0.0</version>
+                	<configuration>
+                		<lifecycleMappingMetadata>
+                			<pluginExecutions>
+                				<pluginExecution>
+                					<pluginExecutionFilter>
+                						<groupId>
+                							com.jayway.maven.plugins.android.generation2
+                						</groupId>
+                						<artifactId>
+                							android-maven-plugin
+                						</artifactId>
+                						<versionRange>
+                							[4.0.0-rc.1,)
+                						</versionRange>
+                						<goals>
+                							<goal>manifest-update</goal>
+                						</goals>
+                					</pluginExecutionFilter>
+                					<action>
+                						<ignore></ignore>
+                					</action>
+                				</pluginExecution>
+                			</pluginExecutions>
+                		</lifecycleMappingMetadata>
+                	</configuration>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -76,6 +108,9 @@
                 <groupId>com.jayway.maven.plugins.android.generation2</groupId>
                 <artifactId>android-maven-plugin</artifactId>
                 <configuration>
+                	<resourceDirectory>${project.basedir}/res</resourceDirectory>
+                	<assetsDirectory>${project.basedir}/assets</assetsDirectory>
+                	<androidManifestFile>${project.basedir}/AndroidManifest.xml</androidManifestFile>
                     <sdk>
                         <!-- api level 8 = platform 2.2.1 -->
                         <platform>8</platform>
