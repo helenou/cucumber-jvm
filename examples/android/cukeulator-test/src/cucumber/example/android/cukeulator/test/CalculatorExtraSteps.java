@@ -13,10 +13,10 @@ import static cucumber.example.android.cukeulator.test.Utils.clickOnView;
 public class CalculatorExtraSteps extends TestSteps {
 
     @When("^I press ([+–x\\/=])$")
-    public void I_press_op(char op) { 
+    public void I_press_op(char op) {
         Activity activity = getActivity();
 
-        switch (op) { 
+        switch (op) {
             case '+':
                 clickOnView(activity, R.id.btn_op_add);
                 break;

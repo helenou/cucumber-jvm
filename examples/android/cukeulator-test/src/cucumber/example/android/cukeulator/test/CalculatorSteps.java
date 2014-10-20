@@ -13,16 +13,15 @@ import cucumber.runtime.android.ActivityInstrumentationSteps;
 import static cucumber.example.android.cukeulator.test.Utils.clickOnView;
 
 /**
- * We extend ActivityInstrumentationSteps in order to have access to methods like getActivity
- * and getInstrumentation. Depending on what methods we are going to need, we can put our
- * step definitions inside classes extending any of the following Android test classes:
+ * We extend ActivityInstrumentationSteps in order to have access to methods like getActivity and
+ * getInstrumentation. Depending on what methods we are going to need, we can put our step
+ * definitions inside classes extending any of the following Android test classes:
  * <p/>
- * ActivityInstrumentationSteps
- * ActivityInstrumentationTestCase2
- * InstrumentationTestCase
+ * ActivityInstrumentationSteps ActivityInstrumentationTestCase2 InstrumentationTestCase
  * AndroidTestCase
  * <p/>
- * However we highly recommend to use ActivityInstrumentationSteps if you have steps in one scenario through different classes.
+ * However we highly recommend to use ActivityInstrumentationSteps if you have steps in one scenario
+ * through different classes.
  * <p/>
  * The CucumberOptions annotation is mandatory for exactly one of the classes in the test project.
  * Only the first annotated class that is found will be used, others are ignored. If no class is
@@ -34,12 +33,12 @@ import static cucumber.example.android.cukeulator.test.Utils.clickOnView;
 @CucumberOptions(features = "features")
 public class CalculatorSteps extends TestSteps {
 
-	@Given("^I have a CalculatorActivity$")
+    @Given("^I have a CalculatorActivity$")
     public void I_have_a_CalculatorActivity() {
         assertNotNull(getActivity());
     }
 
-	@When("^I press (\\d)$")
+    @When("^I press (\\d)$")
     public void I_press_d(int d) {
         Activity activity = getActivity();
 
