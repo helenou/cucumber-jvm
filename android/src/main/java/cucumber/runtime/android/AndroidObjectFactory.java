@@ -10,7 +10,7 @@ import cucumber.runtime.java.ObjectFactory;
 public class AndroidObjectFactory implements ObjectFactory {
     private final ObjectFactory delegate;
     private final Instrumentation instrumentation;
-    
+
     private ActivityInstrumentationSteps mActivityInstrumentationSteps;
 
     public AndroidObjectFactory(ObjectFactory delegate, Instrumentation instrumentation) {
@@ -23,13 +23,13 @@ public class AndroidObjectFactory implements ObjectFactory {
     }
 
     public void stop() {
-    	try {
-			mActivityInstrumentationSteps.tearDown();
-			mActivityInstrumentationSteps = null;
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-    	
+        try {
+            mActivityInstrumentationSteps.tearDown();
+            mActivityInstrumentationSteps = null;
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         delegate.stop();
     }
 
@@ -44,26 +44,27 @@ public class AndroidObjectFactory implements ObjectFactory {
     }
 
     private void decorate(Object instance) {
-    	if (instance instanceof ActivityInstrumentationSteps) {
-        	if (mActivityInstrumentationSteps == null) {
-        		mActivityInstrumentationSteps = (ActivityInstrumentationSteps) instance;
-        		mActivityInstrumentationSteps.injectInstrumentation(instrumentation);
-        		try {
-					mActivityInstrumentationSteps.setUp();
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-        	}
-        } else if (instance instanceof ActivityInstrumentationTestCase2) {
+        if(instance instanceof ActivityInstrumentationSteps) {
+            if(mActivityInstrumentationSteps == null) {
+                mActivityInstrumentationSteps = (ActivityInstrumentationSteps) instance;
+                mActivityInstrumentationSteps.injectInstrumentation(instrumentation);
+                try {
+                    mActivityInstrumentationSteps.setUp();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+            }
+        } else if(instance instanceof ActivityInstrumentationTestCase2) {
             ((ActivityInstrumentationTestCase2) instance).injectInstrumentation(instrumentation);
             // This Intent prevents the ActivityInstrumentationTestCase2 to stall on
-            // Intent.startActivitySync (when calling getActivity) if the activity is already running.
+            // Intent.startActivitySync (when calling getActivity) if the activity is already
+            // running.
             Intent intent = new Intent();
             intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
             ((ActivityInstrumentationTestCase2) instance).setActivityIntent(intent);
-        } else if (instance instanceof InstrumentationTestCase) {
+        } else if(instance instanceof InstrumentationTestCase) {
             ((InstrumentationTestCase) instance).injectInstrumentation(instrumentation);
-        } else if (instance instanceof AndroidTestCase) {
+        } else if(instance instanceof AndroidTestCase) {
             ((AndroidTestCase) instance).setContext(instrumentation.getTargetContext());
         }
     }
