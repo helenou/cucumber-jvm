@@ -52,6 +52,6 @@ public class DexClassFinder implements ClassFinder {
     private boolean isGenerated(String className) {
         int lastDotIndex = className.lastIndexOf(".");
         String shortName = lastDotIndex == -1 ? className : className.substring(lastDotIndex + 1);
-        return shortName.equals("Manifest") || shortName.equals("R") || shortName.startsWith("R$");
+        return shortName.equals("Manifest") || shortName.equals("R") || shortName.startsWith("R$") || shortName.equals("BuildConfig");
     }
 }

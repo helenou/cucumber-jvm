@@ -1,5 +1,6 @@
 package cucumber.example.android.cukeulator.test;
 
+import android.app.Activity;
 import android.test.ActivityInstrumentationTestCase2;
 import android.widget.TextView;
 import cucumber.api.CucumberOptions;
@@ -8,17 +9,20 @@ import cucumber.api.java.en.Then;
 import cucumber.api.java.en.When;
 import cucumber.example.android.cukeulator.CalculatorActivity;
 import cucumber.example.android.cukeulator.R;
-
+import cucumber.runtime.android.ActivityInstrumentationSteps;
 import static cucumber.example.android.cukeulator.test.Utils.clickOnView;
 
 /**
- * We extend ActivityInstrumentationTestCase2 in order to have access to methods like getActivity
+ * We extend ActivityInstrumentationSteps in order to have access to methods like getActivity
  * and getInstrumentation. Depending on what methods we are going to need, we can put our
  * step definitions inside classes extending any of the following Android test classes:
  * <p/>
+ * ActivityInstrumentationSteps
  * ActivityInstrumentationTestCase2
  * InstrumentationTestCase
  * AndroidTestCase
+ * <p/>
+ * However we highly recommend to use ActivityInstrumentationSteps if you have steps in one scenario through different classes.
  * <p/>
  * The CucumberOptions annotation is mandatory for exactly one of the classes in the test project.
  * Only the first annotated class that is found will be used, others are ignored. If no class is
@@ -28,21 +32,16 @@ import static cucumber.example.android.cukeulator.test.Utils.clickOnView;
  * assets/features/ of the test project (or a subdirectory thereof).
  */
 @CucumberOptions(features = "features")
-public class CalculatorActivitySteps extends ActivityInstrumentationTestCase2<CalculatorActivity> {
+public class CalculatorSteps extends TestSteps {
 
-    public CalculatorActivitySteps(SomeDependency dependency) {
-        super(CalculatorActivity.class);
-        assertNotNull(dependency);
-    }
-
-    @Given("^I have a CalculatorActivity$")
+	@Given("^I have a CalculatorActivity$")
     public void I_have_a_CalculatorActivity() {
         assertNotNull(getActivity());
     }
 
-    @When("^I press (\\d)$")
+	@When("^I press (\\d)$")
     public void I_press_d(int d) {
-        CalculatorActivity activity = getActivity();
+        Activity activity = getActivity();
 
         switch (d) {
             case 0:
@@ -76,35 +75,5 @@ public class CalculatorActivitySteps extends ActivityInstrumentationTestCase2<Ca
                 clickOnView(activity, R.id.btn_d_9);
                 break;
         }
-    }
-
-    @When("^I press ([+–x\\/=])$")
-    public void I_press_op(char op) {
-        CalculatorActivity activity = getActivity();
-
-        switch (op) {
-            case '+':
-                clickOnView(activity, R.id.btn_op_add);
-                break;
-            case '–':
-                clickOnView(activity, R.id.btn_op_subtract);
-                break;
-            case 'x':
-                clickOnView(activity, R.id.btn_op_multiply);
-                break;
-            case '/':
-                clickOnView(activity, R.id.btn_op_divide);
-                break;
-            case '=':
-                clickOnView(activity, R.id.btn_op_equals);
-                break;
-        }
-    }
-
-    @Then("^I should see (\\S+) on the display$")
-    public void I_should_see_s_on_the_display(String s) {
-        TextView display = (TextView) getActivity().findViewById(R.id.txt_calc_display);
-        String displayed_result = display.getText().toString();
-        assertEquals(s, displayed_result);
     }
 }
