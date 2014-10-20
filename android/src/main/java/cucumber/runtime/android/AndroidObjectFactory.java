@@ -24,8 +24,10 @@ public class AndroidObjectFactory implements ObjectFactory {
 
     public void stop() {
         try {
-            mActivityInstrumentationSteps.tearDown();
-            mActivityInstrumentationSteps = null;
+            if (mActivityInstrumentationSteps != null) {
+                mActivityInstrumentationSteps.tearDown();
+                mActivityInstrumentationSteps = null;
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
