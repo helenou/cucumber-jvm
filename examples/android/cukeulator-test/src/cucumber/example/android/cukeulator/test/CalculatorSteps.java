@@ -17,7 +17,9 @@ import static cucumber.example.android.cukeulator.test.Utils.clickOnView;
  * getInstrumentation. Depending on what methods we are going to need, we can put our step
  * definitions inside classes extending any of the following Android test classes:
  * <p/>
- * ActivityInstrumentationSteps ActivityInstrumentationTestCase2 InstrumentationTestCase
+ * ActivityInstrumentationSteps<br/>
+ * ActivityInstrumentationTestCase2<br/>
+ * InstrumentationTestCase<br/>
  * AndroidTestCase
  * <p/>
  * However we highly recommend to use ActivityInstrumentationSteps if you have steps in one scenario
